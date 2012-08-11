@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+
+from __future__ import absolute_import
+import re
 from mock import patch
 from os import path
 from django.utils.importlib import import_module
@@ -30,8 +34,8 @@ class MockTrans(object):
                                   PendingDeprecationWarning)
         else:
             from django.utils.translation import trans_null as trans
-        if real_name in ['gettext_noop', 'gettext', 'ngettext',
-                'ugettext', 'ungettext', 'pgettext', 'npgettext']:
+        # We do not wrap strings with a pontoon tag if they are plural
+        if real_name in ['gettext_noop', 'gettext', 'ugettext', 'pgettext']:
             setattr(self, '_' + real_name, getattr(trans, real_name))
             setattr(self, real_name, globals().get('mock_' + real_name))
         else:
@@ -47,7 +51,13 @@ PONTOON_PSEUDO_WRAPPER_TAG = 'LT--pontoonl10n--GT'
 
 
 def _wrap_message(message):
-    return  PONTOON_PSEUDO_WRAPPER_TAG + message or ''
+    # regex to match format specifiers in a string
+    p = re.compile(r'%(\([A-Za-z0-9_\-]+\)){0,1} *[diouxXeEfFgGcrs]')
+    # We do not wrap strings with a pontoon tag if they
+    # contain format specifiers
+    if not p.search(message):
+        message = PONTOON_PSEUDO_WRAPPER_TAG + message or ''
+    return message
 
 
 def mock_gettext_noop(message):
@@ -58,25 +68,12 @@ def mock_gettext(message):
     return _mock_trans._gettext(_wrap_message(message))
 
 
-def mock_ngettext(singular, plural, number):
-    return _mock_trans._ngettext(_wrap_message(singular), plural, number)
-
-
 def mock_ugettext(message):
     return _mock_trans._ugettext(_wrap_message(message))
 
 
-def mock_ungettext(singular, plural, number):
-    return _mock_trans._ungettext(_wrap_message(singular), plural, number)
-
-
 def mock_pgettext(context, message):
     return _mock_trans._pgettext(context, _wrap_message(message))
-
-
-def mock_npgettext(context, singular, plural, number):
-    return _mock_trans._npgettext(
-            context, _wrap_message(singular), plural, number)
 
 
 class PontoonMiddleware(object):

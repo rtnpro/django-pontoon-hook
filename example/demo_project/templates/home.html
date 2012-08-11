@@ -9,6 +9,9 @@
         <p>{% trans "This page tests pontoon's wrapping of various marked up strings in a Django app" %}<p>
         <p>{% trans "A message wrapped in 'trans' templatetag" %}</p>
         <p>{% blocktrans %}This is wrapped inside blocktrans with '{{ message }}' placeholder.{% endblocktrans %}</p>
+        <p>{{ greetings }}</p>
+        <p>{% trans "Below is a plural message" %}</p>
+        <p>{{ plural_message }}</p>
         <div>
             <p><strong>{% trans "A sample form" %}</strong></p>
             <form>
