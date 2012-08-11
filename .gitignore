@@ -1,0 +1,24 @@
+# Local settings
+settings_local.py
+settings/local.py
+*/settings/local.py
+*.py[co]
+*.sw[po]
+.coverage
+pip-log.txt
+docs/_gh-pages
+build.py
+build
+develop-eggs
+eggs
+*\.egg/
+*egg-info
+.DS_Store
+*-min.css
+*-all.css
+*-min.js
+*-all.js
+.noseids
+tmp/*
+*~
+*.mo
