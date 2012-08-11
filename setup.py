@@ -11,5 +11,5 @@ setup(
     packages=[
         'pontoon_hook',
     ],
-    install_requires=['setuptools','mock',]
+    install_requires=['setuptools', 'mock', 'django']
 )
