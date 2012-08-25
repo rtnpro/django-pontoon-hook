@@ -65,6 +65,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
+    'pontoon_hook.context_processors.pontoon_js_url',
 )
 
 INSTALLED_APPS = (
@@ -77,3 +78,5 @@ INSTALLED_APPS = (
     'pontoon_hook',
     'demo',
 )
+
+PONTOON_JS_URL = "http://localhost:8000/en-US/static/pontoon.js"
