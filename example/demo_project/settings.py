@@ -24,6 +24,9 @@ DATABASES = {
 
 USE_I18N = True
 USE_L10N = True
+I18N_BACKEND_REAL = "pontoon_hook.i18n_backend.PontoonI18nRealBackend"
+
+SECRET_KEY = '[YourSecretKey]'
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -36,7 +39,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'pontoon_hook.middleware.PontoonMiddleware',
+    'pontoon_hook.middleware.PontoonMiddleware'
 )
 
 ROOT_URLCONF = 'demo_project.urls'
@@ -46,7 +49,7 @@ TEMPLATE_DIRS = (
 )
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'site_media/media')
-MEDIA_URL = '/site_media/media'
+MEDIA_URL = '/site_media/media/'
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'site_media/static')
 STATIC_URL = '/site_media/static/'

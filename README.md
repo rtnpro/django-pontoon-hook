@@ -13,6 +13,8 @@ Usage
  1. Add 'pontoon_hook' to your `settings.INSTALLED_APPS`.
  1. Add 'pontoon_hook.middleware.PontoonMiddleware' to your `settings.MIDDLEWARE_CLASSES`
     preferably as the last item or as later as possible.
+ 1. Add `I18N_BACKEND_REAL = "pontoon_hook.i18n_backend.PontoonI18nRealBackend"` to your
+    `settings.py`.
 
 TODO
 ----
